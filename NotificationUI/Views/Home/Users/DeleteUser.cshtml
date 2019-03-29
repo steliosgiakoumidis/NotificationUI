@@ -1,0 +1,46 @@
+@model User
+
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete the following user?</h3>
+<div>
+    <h4>User</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Username)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Username)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Facebook)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Facebook)
+        </dd>
+    </dl>
+    
+    <form asp-controller="Users" asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="Id" class="form-control">
+        <input type="hidden" asp-for="Username" class="form-control">
+        <input type="hidden" asp-for="Email" class="form-control">
+        <input type="hidden" asp-for="Facebook" class="form-control">
+        <input type="submit" value="Confirm Deletion" class="btn btn-default" /> |
+        <a asp-action="Users">Back to List</a>
+    </form>
+</div>
