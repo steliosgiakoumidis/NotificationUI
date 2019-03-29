@@ -10,7 +10,7 @@ namespace NotificationUI.Utilities
             string url)
         {
             var client = clientFactory.CreateClient();
-            var response = await client.GetAsync("http://localhost:5005/api/users");
+            var response = await client.GetAsync(url);
             return await ParseUtilities.ParseCollectionsResponse<T>(response);  
         }
 
@@ -19,7 +19,7 @@ namespace NotificationUI.Utilities
         {
             var client = clientFactory.CreateClient();
             var response = await client.GetAsync(
-                "http://localhost:5005/api/users/" + id.Value);
+                url + id.Value);
             return await ParseUtilities.ParseResponse<T>(response);
         }
 
@@ -29,7 +29,7 @@ namespace NotificationUI.Utilities
         var httpContent = ParseUtilities.PrepareHttpContent(updatedEntry);
         var client = clientFactory.CreateClient();             
         var response = await client.PutAsync(
-            "http://localhost:5005/api/users", httpContent);
+            url, httpContent);
         return response.IsSuccessStatusCode;
         }
 
@@ -38,18 +38,18 @@ namespace NotificationUI.Utilities
         {
             var httpContent = ParseUtilities.PrepareHttpContent(entryToBeAdded);
             var client = clientFactory.CreateClient();             
-            var response = await client.PostAsync("http://localhost:5005/api/users", 
+            var response = await client.PostAsync(url, 
                 httpContent);
             return response.IsSuccessStatusCode;
         }
         
-        public static async Task<bool> DeleteEntry(IHttpClientFactory clientFactory,
+        public static async Task<bool> DeleteEntry<T>(IHttpClientFactory clientFactory,
             string url, T entryToBeDeleted, int? id)
             {
                 var httpContent = ParseUtilities.PrepareHttpContent(entryToBeDeleted);
                 var client = clientFactory.CreateClient();             
                 var response = await client.PostAsync(
-                    "http://localhost:5005/api/users/" + id, httpContent); 
+                    url + id, httpContent); 
                 return response.IsSuccessStatusCode;
             }
     }

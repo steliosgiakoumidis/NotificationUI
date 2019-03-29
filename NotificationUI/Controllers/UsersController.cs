@@ -14,7 +14,7 @@ namespace NotificationUI.Controllers
     public class UsersController : Controller
     {
         private IHttpClientFactory _clientFactory;
-        private string _usersUri = "http://localhost:5005/api/users";
+        private string _usersUri = "http://localhost:5005/api/users/";
 
         public UsersController(IHttpClientFactory clientFactory)
         {

@@ -40,7 +40,7 @@ namespace NotificationUI.Utilities
             var httpContent = new StringContent(JsonConvert.SerializeObject(item).ToString());
             httpContent.Headers.ContentType = 
                 new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
-                return httpContent;
+            return httpContent;
 
         }
     }

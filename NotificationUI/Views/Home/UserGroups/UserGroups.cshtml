@@ -1,4 +1,4 @@
-@model IEnumerable<NotificationUI.Models.User>
+@model IEnumerable<UserGroups>
 
 <h2>Available users</h2>
 
@@ -9,16 +9,11 @@
                     @Html.DisplayNameFor(model => model.Id)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Username)
+                    @Html.DisplayNameFor(model => model.GroupName)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Email)
+                    @Html.DisplayNameFor(model => model.UserIds)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Facebook)
-                </th>
-
-
             <th></th>
         </tr>
     </thead>
@@ -29,17 +24,14 @@
                 @Html.DisplayFor(modelItem => item.Id)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Username)
+                @Html.DisplayFor(modelItem => item.GroupName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Email)
+                @Html.DisplayFor(modelItem => item.UserIds)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Facebook)
-            </td>
-            <td>
-                <a style="margin-right: 10px" asp-controller="Users" asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
-                <a asp-controller="Users" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a style="margin-right: 10px" asp-controller="UserGroups" asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
+                <a asp-controller="UserGroups" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
     }
@@ -50,7 +42,7 @@
 <div class="text-center">
     <h1 class="display-4">Users options</h1>
     <div>
-        <a class="block" asp-controller="Users" asp-action="AddUser"> Add User </a>
+        <a class="block" asp-controller="UserGroups" asp-action="AddUserGroup"> Add User </a>
     </div>
 </div>
 
