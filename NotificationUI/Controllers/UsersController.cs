@@ -26,9 +26,7 @@ namespace NotificationUI.Controllers
             IEnumerable<User> viewResult = null;
             try
             {
-                // var client = _clientFactory.CreateClient();
-                // var response = await client.GetAsync("http://localhost:5005/api/users");
-                viewResult = await HttpUtilities.GetAllItems<User>(_clientFactory, _usersUri);//await ParseUtilities.ParseCollectionsResponse<User>(response);                
+                viewResult = await HttpUtilities.GetAllEntries<User>(_clientFactory, _usersUri);                
             }
             catch (Exception ex)
             {                   
@@ -39,16 +37,11 @@ namespace NotificationUI.Controllers
 
         public async Task<IActionResult> Edit(int? id)
         {
-            if (!id.HasValue || id == null)
-            {
-                return NotFound();
-            }
+            if (!id.HasValue || id == null) return NotFound();
             try
             {
-                var client = _clientFactory.CreateClient();
-                var response = await client.GetAsync(
-                    "http://localhost:5005/api/users/" + id.Value);
-                var viewResult = ParseUtilities.ParseResponse<User>(response);
+                var viewResult = await HttpUtilities.GetSpecificEntry<User>(_clientFactory, 
+                    _usersUri, id);
                 return View("~/Views/Home/Users/EditUser.cshtml", viewResult);
             }
             catch (Exception ex)
@@ -63,19 +56,14 @@ namespace NotificationUI.Controllers
         public async Task<IActionResult> Edit(int? id, 
             [Bind("Id, Username, Email, Facebook")] User user)
         {
-            if(!id.HasValue || id != user.Id)
-            {
-                return NotFound();
-            }
+            if(!id.HasValue || id != user.Id) return NotFound();
             if (ModelState.IsValid)
             {
                 try
-                {
-                    var httpContent = ParseUtilities.PrepareHttpContent(user);
-                    var client = _clientFactory.CreateClient();             
-                    var response = await client.PutAsync(
-                        "http://localhost:5005/api/users", httpContent);
-                    if (!response.IsSuccessStatusCode)
+                {        
+                    var isUpdatedSuccessfully = await HttpUtilities.EditEntry(
+                            _clientFactory, _usersUri,  user);
+                    if (!isUpdatedSuccessfully)
                     {
                         Log.Error("Edit user request returned a non successfull status code");
                         return StatusCode(500);
@@ -102,11 +90,9 @@ namespace NotificationUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                var httpContent = ParseUtilities.PrepareHttpContent(user);
-                var client = _clientFactory.CreateClient();
-                var response = await client.PostAsync("http://localhost:5005/api/users", 
-                    httpContent);
-                if (!response.IsSuccessStatusCode)
+                var idAddedSuccessfully = await HttpUtilities.AddEntry<User>(
+                        _clientFactory, _usersUri, user);
+                if (!idAddedSuccessfully)
                 {
                     Log.Error("Add request failed with unsuccessfull status code");
                     return BadRequest();
@@ -124,10 +110,8 @@ namespace NotificationUI.Controllers
             }
             try
             {
-                var client = _clientFactory.CreateClient();
-                var response = await client.GetAsync(
-                    "http://localhost:5005/api/users/" + id.Value);
-                var viewResult = ParseUtilities.ParseResponse<User>(response);
+                var viewResult =  await HttpUtilities.GetSpecificEntry<User>(_clientFactory, 
+                    _usersUri, id);
                 return View("~/Views/Home/Users/Deleteuser.cshtml", viewResult);
             }
             catch(Exception ex)
@@ -147,12 +131,10 @@ namespace NotificationUI.Controllers
                 return NotFound();
             }
             try
-            {
-                var httpContent = ParseUtilities.PrepareHttpContent(user);
-                var client = _clientFactory.CreateClient();             
-                var response = await client.PostAsync(
-                    "http://localhost:5005/api/users/" + id, httpContent);       
-                if (response.IsSuccessStatusCode == false)
+            {           
+                var isDeletedSuccessfully = await HttpUtilities.DeleteEntry(_clientFactory, 
+                    _usersUri, user, id);   
+                if (!isDeletedSuccessfully)
                 {
                     return NotFound();
                 }

@@ -14,5 +14,6 @@ namespace NotificationUI.Models
         public string Parameters { get; set; }
         public string Username { get; set; }
         public string UserGroup { get; set; }
+        public string Priority { get; set; }
     }
 }
