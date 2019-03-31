@@ -1,6 +1,6 @@
-@model UserGroups
+@model UserGroup
 
-<h2>Edit UserGroup</h2>
+<h2>Edit User Group</h2>
 
 <h4>Notification Portal</h4>
 <hr />
@@ -8,7 +8,6 @@
     <div class="col-md-4">
         <form asp-controller="UserGroups" asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="GroupName" class="control-label"></label>
                 <input asp-for="GroupName" class="form-control" />

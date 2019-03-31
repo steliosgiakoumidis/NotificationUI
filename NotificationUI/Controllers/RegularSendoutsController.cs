@@ -9,38 +9,38 @@ using Serilog;
 
 namespace NotificationUI.Controllers
 {
-    public class UserGroupsController : Controller
+    public class RegularSendoutsController : Controller
     {
         private IHttpClientFactory _clientFactory;
-        private static string _userGroupsUri = "http://localhost:5005/api/userGroups/";
-        public UserGroupsController(IHttpClientFactory clientFactory)
+        private static string _regularSendoutUri = "http://localhost:5005/api/regularsendout/";
+        public RegularSendoutsController(IHttpClientFactory clientFactory)
         {
             _clientFactory = clientFactory;
         }
 
-        public async Task<IActionResult> UserGroups()
+        public async Task<IActionResult> RegularSendouts()
         {
-            IEnumerable<UserGroup> viewResult = null; 
+            IEnumerable<RegularSendout> viewResult = null;
             try
             {
-                viewResult = await HttpUtilities.GetAllEntries<UserGroup>(_clientFactory,
-                     _userGroupsUri);
+                viewResult = await HttpUtilities.GetAllEntries<RegularSendout>(_clientFactory,
+                        _regularSendoutUri);
+               
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                Log.Error("Get user groups failed with error: " + ex);
+                Log.Error("Get templates failerd with error: " + ex);
             }
-            return View("~/Views/Home/UserGroups/UserGroups.cshtml", viewResult);
+            return View("~/Views/Home/RegularSendouts/RegularSendouts.cshtml", viewResult);
         }
-
         public async Task<IActionResult> Edit(int? id)
         {
             if (!id.HasValue || id == null) return NotFound();
             try
             {
-                var viewResult = await HttpUtilities.GetSpecificEntry<UserGroup>(_clientFactory, 
-                    _userGroupsUri, id);
-                return View("~/Views/Home/UserGroups/EditUserGroup.cshtml", viewResult);
+                var viewResult = await HttpUtilities.GetSpecificEntry<Template>(_clientFactory, 
+                    _templatesUri, id);
+                return View("~/Views/Home/Templates/EditTemplate.cshtml", viewResult);
             }
             catch (Exception ex)
             {
@@ -51,48 +51,51 @@ namespace NotificationUI.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryTokenAttribute]
-        public async Task<IActionResult> Edit([Bind("Id, GroupName, UserIds")] UserGroup userGroups)
+        public async Task<IActionResult> Edit(
+            [Bind("Id, NotificationText, NotificationName, NotificationPriority")] 
+            Template template)
         {
             if (ModelState.IsValid)
             {
                 try
                 {        
                     var isUpdatedSuccessfully = await HttpUtilities.EditEntry(
-                            _clientFactory, _userGroupsUri,  userGroups);
+                            _clientFactory, _templatesUri, template);
                     if (!isUpdatedSuccessfully)
                     {
-                        Log.Error("Edit user request returned a non successfull status code");
+                        Log.Error("Edit template request returned a non successfull status code");
                         return StatusCode(500);
                     }
-                    return RedirectToAction("UserGroups");
+                    return RedirectToAction("Templates");
                 }
                 catch(Exception ex)
                 {
-                    Log.Error("Edit user groups request failed with error: "+ ex);
+                    Log.Error("Edit template request failed with error: "+ ex);
                     return StatusCode(500);
                 }
             }
-            return BadRequest("Something was wrong in your details, please retry");
+            return BadRequest("Something was wrong with your details, please retry");
         }
 
-        public IActionResult AddUserGroup()
+        public async Task<IActionResult> Add()
         {
-            return View("~/Views/Home/UserGroups/AddUserGroup.cshtml");
+            return View("~/Views/Home/Templates/AddTemplate.cshtml");
         }
 
         [HttpPost]
         [ValidateAntiForgeryTokenAttribute]
-        public async Task<IActionResult> Add([Bind("GroupName, UserIds")] UserGroup userGroup)
+        public async Task<IActionResult> Add([Bind("NotificationText, NotificationName, NotificationPriority")]
+            Template template)
         {
-            if(!ModelState.IsValid) return StatusCode(500, userGroup);
+            if(!ModelState.IsValid) return StatusCode(500, template);
             var idAddedSuccessfully = await HttpUtilities.AddEntry(_clientFactory,
-                 _userGroupsUri, userGroup);
+                 _templatesUri, template);
             if(!idAddedSuccessfully)
             {
                 Log.Error("Add request failed with unsuccessfull status code");
                 return BadRequest();
             }
-            return RedirectToAction("UserGroups");
+            return RedirectToAction("Templates");
         }
 
         public async Task<IActionResult> Delete(int? id)
@@ -100,9 +103,9 @@ namespace NotificationUI.Controllers
             if (!id.HasValue || id == null) return NotFound();
             try
             {
-                var viewResult =  await HttpUtilities.GetSpecificEntry<UserGroup>(_clientFactory, 
-                    _userGroupsUri, id);
-                return View("~/Views/Home/UserGroups/DeleteUserGroup.cshtml", viewResult);
+                var viewResult =  await HttpUtilities.GetSpecificEntry<Template>(_clientFactory, 
+                    _templatesUri, id);
+                return View("~/Views/Home/Templates/DeleteTemplate.cshtml", viewResult);
             }
             catch(Exception ex)
             {
@@ -113,19 +116,19 @@ namespace NotificationUI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryTokenAttribute]
-        public async Task<IActionResult> Delete(UserGroup userGroup)
+        public async Task<IActionResult> Delete(Template template)
         {
-            if(!ModelState.IsValid) return StatusCode(500, userGroup);
-            if (userGroup.Id == 0) return NotFound();
+            if(!ModelState.IsValid) return StatusCode(500, template);
+            if (template.Id == 0) return NotFound();
             try
             {           
                 var isDeletedSuccessfully = await HttpUtilities.DeleteEntry(_clientFactory, 
-                    _userGroupsUri, userGroup);   
+                    _templatesUri, template);   
                 if (!isDeletedSuccessfully)
                 {
                     return NotFound();
                 }
-                return RedirectToAction("UserGroups");
+                return RedirectToAction("Templates");
             }
             catch (Exception ex)
             {
@@ -133,5 +136,6 @@ namespace NotificationUI.Controllers
                 return StatusCode(500);
             }
         }
+        
     }
 }

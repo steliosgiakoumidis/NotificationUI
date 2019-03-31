@@ -44,12 +44,13 @@ namespace NotificationUI.Utilities
         }
         
         public static async Task<bool> DeleteEntry<T>(IHttpClientFactory clientFactory,
-            string url, T entryToBeDeleted, int? id)
+            string url, T entryToBeDeleted)
             {
+                url = url + "delete";
                 var httpContent = ParseUtilities.PrepareHttpContent(entryToBeDeleted);
                 var client = clientFactory.CreateClient();             
                 var response = await client.PostAsync(
-                    url + id, httpContent); 
+                    url, httpContent); 
                 return response.IsSuccessStatusCode;
             }
     }

@@ -1,6 +1,6 @@
 namespace NotificationUI.Models
 {
-    public class UserGroups
+    public class UserGroup
     {
         public int Id { get; set; }
         public string GroupName { get; set; }

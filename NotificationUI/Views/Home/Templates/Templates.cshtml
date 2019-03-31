@@ -1,4 +1,4 @@
-@model IEnumerable<UserGroup>
+@model IEnumerable<Template>
 
 <h2>Available user groups</h2>
 
@@ -9,10 +9,13 @@
                     @Html.DisplayNameFor(model => model.Id)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.GroupName)
+                    @Html.DisplayNameFor(model => model.NotificationName)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.UserIds)
+                    @Html.DisplayNameFor(model => model.NotificationText)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NotificationPriority)
                 </th>
             <th></th>
         </tr>
@@ -24,14 +27,17 @@
                 @Html.DisplayFor(modelItem => item.Id)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.GroupName)
+                @Html.DisplayFor(modelItem => item.NotificationName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.UserIds)
+                @Html.DisplayFor(modelItem => item.NotificationText)
             </td>
             <td>
-                <a style="margin-right: 10px" asp-controller="UserGroups" asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
-                <a asp-controller="UserGroups" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                @Html.DisplayFor(modelItem => item.NotificationPriority)
+            </td>
+            <td>
+                <a style="margin-right: 10px" asp-controller="Templates" asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
+                <a asp-controller="Templates" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
     }
@@ -40,9 +46,9 @@
 </table>
 
 <div class="text-center">
-    <h1 class="display-4">Users options</h1>
+    <h1 class="display-4">Template options</h1>
     <div>
-        <a class="block" asp-controller="UserGroups" asp-action="AddUserGroup"> Add User Group </a>
+        <a class="block" asp-controller="Templates" asp-action="AddTemplate"> Add Template </a>
     </div>
 </div>
 

@@ -21,7 +21,7 @@ namespace NotificationUI.Controllers
             _clientFactory = clientFactory;
         }
 
-         public async Task<IActionResult> Users()
+        public async Task<IActionResult> Users()
         {
             IEnumerable<User> viewResult = null;
             try
@@ -79,7 +79,7 @@ namespace NotificationUI.Controllers
             return BadRequest("Something was wrong in your details, please retry");
         }
 
-        public async Task<IActionResult> AddUser()
+        public IActionResult Add()
         {
             return View("~/Views/Home/Users/AddUser.cshtml");
         }
@@ -88,26 +88,28 @@ namespace NotificationUI.Controllers
         [ValidateAntiForgeryTokenAttribute]
         public async Task<IActionResult> Add([Bind("Username, Email, Facebook")] User user)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid) return StatusCode(500, user);   
+            try
             {
-                var idAddedSuccessfully = await HttpUtilities.AddEntry<User>(
-                        _clientFactory, _usersUri, user);
+                var idAddedSuccessfully = await HttpUtilities.AddEntry(
+                    _clientFactory, _usersUri, user);
                 if (!idAddedSuccessfully)
                 {
                     Log.Error("Add request failed with unsuccessfull status code");
                     return BadRequest();
                 }
-                return RedirectToAction("Users");
+                return RedirectToAction("Users"); 
             }
-            return BadRequest("Something was wrong in your details, please retry");
+            catch(Exception ex)
+            {
+                Log.Error("Add user request failed with error: "+ ex);
+                return StatusCode(500);
+            }                     
         }
 
         public async Task<IActionResult> Delete(int? id)
         {
-            if (!id.HasValue || id == null)
-            {
-                return NotFound();
-            }
+            if (!id.HasValue || id == null) return NotFound();
             try
             {
                 var viewResult =  await HttpUtilities.GetSpecificEntry<User>(_clientFactory, 
@@ -123,17 +125,14 @@ namespace NotificationUI.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int? id, 
-            [Bind("Id, Username, Email, Facebook")] User user)
+        public async Task<IActionResult> DeleteConfirmed(User user)
         {
-            if (!id.HasValue || id == null)
-            {
-                return NotFound();
-            }
+            if(!ModelState.IsValid) return StatusCode(500, user);
+            if (user.Id == 0) return NotFound();
             try
             {           
                 var isDeletedSuccessfully = await HttpUtilities.DeleteEntry(_clientFactory, 
-                    _usersUri, user, id);   
+                    _usersUri, user);   
                 if (!isDeletedSuccessfully)
                 {
                     return NotFound();

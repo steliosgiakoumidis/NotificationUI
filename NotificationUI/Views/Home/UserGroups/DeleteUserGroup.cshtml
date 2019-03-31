@@ -1,0 +1,38 @@
+@model UserGroup
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete the following user group?</h3>
+<div>
+    <h4>User</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.GroupName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GroupName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UserIds)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UserIds)
+        </dd>
+    </dl>
+    
+    <form asp-controller="UserGroups" asp-action="Delete">
+        <!-- <input type="hidden" asp-for="Id" /> -->
+        <input type="hidden" asp-for="Id" class="form-control">
+        <input type="hidden" asp-for="GroupName" class="form-control">
+        <input type="hidden" asp-for="UserIds" class="form-control">
+        <input type="submit" value="Confirm Deletion" class="btn btn-default" /> |
+        <a asp-action="UserGroups">Back to List</a>
+    </form>
+</div>

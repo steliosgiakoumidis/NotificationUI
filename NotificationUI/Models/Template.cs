@@ -1,6 +1,6 @@
 namespace NotificationUI.Models
 {
-    public class Templates
+    public class Template
     {
         public int Id { get; set; }
         public string NotificationText { get; set; }
