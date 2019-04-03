@@ -38,9 +38,9 @@ namespace NotificationUI.Controllers
             if (!id.HasValue || id == null) return NotFound();
             try
             {
-                var viewResult = await HttpUtilities.GetSpecificEntry<Template>(_clientFactory, 
-                    _templatesUri, id);
-                return View("~/Views/Home/Templates/EditTemplate.cshtml", viewResult);
+                var viewResult = await HttpUtilities.GetSpecificEntry<RegularSendout>(_clientFactory, 
+                    _regularSendoutUri, id);
+                return View("~/Views/Home/RegularSendouts/EditSendout.cshtml", viewResult);
             }
             catch (Exception ex)
             {
@@ -52,21 +52,21 @@ namespace NotificationUI.Controllers
         [HttpPost]
         [ValidateAntiForgeryTokenAttribute]
         public async Task<IActionResult> Edit(
-            [Bind("Id, NotificationText, NotificationName, NotificationPriority")] 
-            Template template)
+            [Bind("Id, ReminderName, StartDate, RepetitionFrequency, ExecutionTime, DayOfTheWeek, LastRunAt, Parameters, Username, UserGroup, Priority")] 
+            RegularSendout sendout)
         {
             if (ModelState.IsValid)
             {
                 try
                 {        
                     var isUpdatedSuccessfully = await HttpUtilities.EditEntry(
-                            _clientFactory, _templatesUri, template);
+                            _clientFactory, _regularSendoutUri, sendout);
                     if (!isUpdatedSuccessfully)
                     {
                         Log.Error("Edit template request returned a non successfull status code");
                         return StatusCode(500);
                     }
-                    return RedirectToAction("Templates");
+                    return RedirectToAction("RegularSendouts");
                 }
                 catch(Exception ex)
                 {
@@ -79,23 +79,25 @@ namespace NotificationUI.Controllers
 
         public async Task<IActionResult> Add()
         {
-            return View("~/Views/Home/Templates/AddTemplate.cshtml");
+            return View("~/Views/Home/RegularSendouts/AddSendout.cshtml");
         }
 
         [HttpPost]
         [ValidateAntiForgeryTokenAttribute]
-        public async Task<IActionResult> Add([Bind("NotificationText, NotificationName, NotificationPriority")]
-            Template template)
+        public async Task<IActionResult> Add(
+            [Bind("ReminderName, StartDate, RepetitionFrequency, ExecutionTime, DayOfTheWeek, LastRunAt, Parameters, Username, UserGroup, Priority")]
+            RegularSendout sendout)
         {
-            if(!ModelState.IsValid) return StatusCode(500, template);
-            var idAddedSuccessfully = await HttpUtilities.AddEntry(_clientFactory,
-                 _templatesUri, template);
-            if(!idAddedSuccessfully)
+            if(!ModelState.IsValid) return StatusCode(500, sendout);
+
+            var isAddedSuccessfully = await HttpUtilities.AddEntry(_clientFactory,
+                 _regularSendoutUri, sendout);
+            if(!isAddedSuccessfully)
             {
                 Log.Error("Add request failed with unsuccessfull status code");
-                return BadRequest();
+                return BadRequest("Add request failed with unsuccessfull status code, please check your inputs");
             }
-            return RedirectToAction("Templates");
+            return RedirectToAction("RegularSendouts");
         }
 
         public async Task<IActionResult> Delete(int? id)
@@ -103,9 +105,9 @@ namespace NotificationUI.Controllers
             if (!id.HasValue || id == null) return NotFound();
             try
             {
-                var viewResult =  await HttpUtilities.GetSpecificEntry<Template>(_clientFactory, 
-                    _templatesUri, id);
-                return View("~/Views/Home/Templates/DeleteTemplate.cshtml", viewResult);
+                var viewResult =  await HttpUtilities.GetSpecificEntry<RegularSendout>(_clientFactory,
+                    _regularSendoutUri, id);
+                return View("~/Views/Home/RegularSendouts/DeleteSendout.cshtml", viewResult);
             }
             catch(Exception ex)
             {
@@ -116,19 +118,19 @@ namespace NotificationUI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryTokenAttribute]
-        public async Task<IActionResult> Delete(Template template)
+        public async Task<IActionResult> Delete(RegularSendout sendout)
         {
-            if(!ModelState.IsValid) return StatusCode(500, template);
-            if (template.Id == 0) return NotFound();
+            if(!ModelState.IsValid) return StatusCode(500, sendout);
+            if (sendout.Id == 0) return NotFound();
             try
             {           
                 var isDeletedSuccessfully = await HttpUtilities.DeleteEntry(_clientFactory, 
-                    _templatesUri, template);   
+                    _regularSendoutUri, sendout);   
                 if (!isDeletedSuccessfully)
                 {
                     return NotFound();
                 }
-                return RedirectToAction("Templates");
+                return RedirectToAction("RegularSendouts");
             }
             catch (Exception ex)
             {

@@ -1,0 +1,115 @@
+@model IEnumerable<RegularSendout>
+
+<h2>Available user groups</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ReminderName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.StartDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ExecutionTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DayOfTheWeek)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LastRunAt)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Parameters)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Username)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserGroup)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Priority)
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReminderName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RepetitionFrequency)
+            </td>
+                        <td>
+                @Html.DisplayFor(modelItem => item.ExecutionTime)
+            </td>
+                        <td>
+                @Html.DisplayFor(modelItem => item.DayOfTheWeek)
+            </td>
+                        <td>
+                @Html.DisplayFor(modelItem => item.LastRunAt)
+            </td>
+                        <td>
+                @Html.DisplayFor(modelItem => item.Parameters)
+            </td>
+                        <td>
+                @Html.DisplayFor(modelItem => item.Username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserGroup)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Priority)
+            </td>
+            <td>
+                <a style="margin-right: 10px" asp-controller="RegularSendouts" asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
+                <a asp-controller="RegularSendouts" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+
+</table>
+
+<div class="text-center">
+    <h1 class="display-4">Template options</h1>
+    <div>
+        <a class="block" asp-controller="RegularSendouts" asp-action="Add"> Add Template </a>
+    </div>
+</div>
+
+<!-- CSS part -->
+
+<style>
+.block {
+  display: block;
+  width: 100%;
+  border: none;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+.block:hover {
+  background-color: #ddd;
+  color: black;
+}
+</style>

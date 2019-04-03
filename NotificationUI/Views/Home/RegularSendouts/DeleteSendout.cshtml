@@ -1,0 +1,94 @@
+@model RegularSendout
+
+<h2>Delete sendout</h2>
+
+<h3>Are you sure you want to delete the following send out?</h3>
+<div>
+    <h4>User</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ReminderName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ReminderName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.StartDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RepetitionFrequency)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RepetitionFrequency)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ExecutionTime)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ExecutionTime)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DayOfTheWeek)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DayOfTheWeek)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LastRunAt)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LastRunAt)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Parameters)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Parameters)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Username)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Username)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UserGroup)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UserGroup)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Priority)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Priority)
+        </dd>
+    </dl>
+    
+    <form asp-controller="RegularSendouts" asp-action="Delete">
+        <!-- <input type="hidden" asp-for="Id" /> -->
+        <input type="hidden" asp-for="Id" class="form-control">
+        <input type="hidden" asp-for="ReminderName" class="form-control">
+        <input type="hidden" asp-for="StartDate" class="form-control">
+        <input type="hidden" asp-for="RepetitionFrequency" class="form-control">
+        <input type="hidden" asp-for="ExecutionTime" class="form-control">
+        <input type="hidden" asp-for="DayOfTheWeek" class="form-control">
+        <input type="hidden" asp-for="LastRunAt" class="form-control">
+        <input type="hidden" asp-for="Parameters" class="form-control">
+        <input type="hidden" asp-for="Username" class="form-control">
+        <input type="hidden" asp-for="UserGroup" class="form-control">
+        <input type="hidden" asp-for="Priority" class="form-control">
+        <input type="submit" value="Confirm Deletion" class="btn btn-default" /> |
+        <a asp-action="RegularSendouts">Back to List</a>
+    </form>
+</div>
