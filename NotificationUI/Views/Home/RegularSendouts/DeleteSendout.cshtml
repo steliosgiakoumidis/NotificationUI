@@ -67,12 +67,6 @@
         <dd>
             @Html.DisplayFor(model => model.UserGroup)
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Priority)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Priority)
-        </dd>
     </dl>
     
     <form asp-controller="RegularSendouts" asp-action="Delete">
@@ -87,7 +81,6 @@
         <input type="hidden" asp-for="Parameters" class="form-control">
         <input type="hidden" asp-for="Username" class="form-control">
         <input type="hidden" asp-for="UserGroup" class="form-control">
-        <input type="hidden" asp-for="Priority" class="form-control">
         <input type="submit" value="Confirm Deletion" class="btn btn-default" /> |
         <a asp-action="RegularSendouts">Back to List</a>
     </form>

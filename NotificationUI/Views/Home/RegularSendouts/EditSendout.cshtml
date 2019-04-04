@@ -20,18 +20,18 @@
             </div>
             <div class="form-group">
                 <label asp-for="RepetitionFrequency" class="control-label"></label>
-                <input asp-for="RepetitionFrequency" class="form-control" />
-                <span asp-validation-for="RepetitionFrequency" class="text-danger"></span>
+                <select asp-for="RepetitionFrequency" asp-items= "Html.GetEnumSelectList<Enums.RepetitionFrequency>()" class="form-control"></select>
+                <span></span>
             </div>            
             <div class="form-group">
                 <label asp-for="ExecutionTime" class="control-label"></label>
-                <input asp-for="ExecutionTime" class="form-control" />
-                <span asp-validation-for="ExecutionTime" class="text-danger"></span>
+                <select asp-for="ExecutionTime" asp-items= "Html.GetEnumSelectList<Enums.ExecutionTime>()" class="form-control"></select>
+                <span></span>
             </div>
             <div class="form-group">
                 <label asp-for="DayOfTheWeek" class="control-label"></label>
-                <input asp-for="DayOfTheWeek" class="form-control" />
-                <span asp-validation-for="DayOfTheWeek" class="text-danger"></span>
+                <select asp-for="DayOfTheWeek" asp-items= "Html.GetEnumSelectList<Enums.DayOfTheWeek>()" class="form-control"></select>
+                <span></span>
             </div>
             <div class="form-group">
                 <label asp-for="LastRunAt" class="control-label"></label>
@@ -52,11 +52,6 @@
                 <label asp-for="UserGroup" class="control-label"></label>
                 <input asp-for="UserGroup" class="form-control" />
                 <span asp-validation-for="UserGroup" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Priority" class="control-label"></label>
-                <input asp-for="Priority" class="form-control" />
-                <span asp-validation-for="Priority" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />

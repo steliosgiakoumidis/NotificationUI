@@ -24,8 +24,7 @@ namespace NotificationUI.Controllers
             try
             {
                 viewResult = await HttpUtilities.GetAllEntries<RegularSendout>(_clientFactory,
-                        _regularSendoutUri);
-               
+                        _regularSendoutUri);              
             }
             catch (Exception ex)
             {
