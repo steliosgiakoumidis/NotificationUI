@@ -2,8 +2,6 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using System.IdentityModel;
-using NotificationUI.Models;
 using System;
 
 namespace NotificationUI.Utilities

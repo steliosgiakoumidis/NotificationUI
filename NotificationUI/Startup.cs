@@ -43,12 +43,14 @@ namespace NotificationUI
             });
             services.Configure<Config>(options => Configuration.GetSection("Config").Bind(options));
             services.AddHttpClient();
+            services.AddHealthChecks();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseHealthChecks("/health");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
