@@ -27,10 +27,10 @@
             @Html.DisplayFor(model => model.Email)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Facebook)
+            @Html.DisplayNameFor(model => model.SMS)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Facebook)
+            @Html.DisplayFor(model => model.SMS)
         </dd>
     </dl>
     
@@ -39,7 +39,7 @@
         <input type="hidden" asp-for="Id" class="form-control">
         <input type="hidden" asp-for="Username" class="form-control">
         <input type="hidden" asp-for="Email" class="form-control">
-        <input type="hidden" asp-for="Facebook" class="form-control">
+        <input type="hidden" asp-for="SMS" class="form-control">
         <input type="submit" value="Confirm Deletion" class="btn btn-default" /> |
         <a asp-action="Users">Back to List</a>
     </form>

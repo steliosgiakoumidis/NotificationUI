@@ -21,8 +21,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="NotificationPriority" class="control-label"></label>
-                <input asp-for="NotificationPriority" class="form-control" />
-                <span asp-validation-for="NotificationPriority" class="text-danger"></span>
+                <select asp-for="NotificationPriority" asp-items="Html.GetEnumSelectList<NotificationCommon.Models.Enums.MeansOfCommunication>()" class="form-control"></select>
+
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />

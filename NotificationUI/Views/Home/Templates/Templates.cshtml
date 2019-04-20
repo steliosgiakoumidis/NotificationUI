@@ -1,6 +1,7 @@
 @model IEnumerable<NotificationCommon.Models.Template>
 
-<h2>Available user groups</h2>
+<h2>Available templates</h2>
+<h6>In notification text enter in square brackets parameters that will be substituted with the sendout parameters passed</h6>
 
 <table class="table">
     <thead>
@@ -48,7 +49,7 @@
 <div class="text-center">
     <h1 class="display-4">Template options</h1>
     <div>
-        <a class="block" asp-controller="Templates" asp-action="AddTemplate"> Add Template </a>
+        <a class="block" asp-controller="Templates" asp-action="Add"> Add Template </a>
     </div>
 </div>
 
