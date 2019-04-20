@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace NotificationUI.Models
 {
-    public class RegularSendout
+    public class Sendout
     {
         public int Id { get; set; }
         public string ReminderName { get; set; }

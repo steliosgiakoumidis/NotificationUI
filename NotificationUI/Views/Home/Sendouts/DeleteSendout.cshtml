@@ -1,4 +1,4 @@
-@model RegularSendout
+@model Sendout
 
 <h2>Delete sendout</h2>
 
@@ -69,7 +69,7 @@
         </dd>
     </dl>
     
-    <form asp-controller="RegularSendouts" asp-action="Delete">
+    <form asp-controller="Sendouts" asp-action="Delete">
         <!-- <input type="hidden" asp-for="Id" /> -->
         <input type="hidden" asp-for="Id" class="form-control">
         <input type="hidden" asp-for="ReminderName" class="form-control">
@@ -82,6 +82,6 @@
         <input type="hidden" asp-for="Username" class="form-control">
         <input type="hidden" asp-for="UserGroup" class="form-control">
         <input type="submit" value="Confirm Deletion" class="btn btn-default" /> |
-        <a asp-action="RegularSendouts">Back to List</a>
+        <a asp-action="Sendouts">Back to List</a>
     </form>
 </div>

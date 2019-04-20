@@ -1,4 +1,4 @@
-@model RegularSendout
+@model Sendout
 
 <h2>Edit Template</h2>
 
@@ -6,7 +6,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-controller="RegularSendouts" asp-action="Edit">
+        <form asp-controller="Sendouts" asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="ReminderName" class="control-label"></label>
@@ -61,7 +61,7 @@
 </div>
 
 <div>
-    <a asp-action="RegularSendouts">Back to List</a>
+    <a asp-action="Sendouts">Back to List</a>
 </div>
 
 @section Scripts {

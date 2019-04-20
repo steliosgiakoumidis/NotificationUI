@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using NotificationUI.Models;
 using NotificationUI.Utilities;
 using Serilog;
@@ -12,10 +13,11 @@ namespace NotificationUI.Controllers
     public class UserGroupsController : Controller
     {
         private IHttpClientFactory _clientFactory;
-        private static string _userGroupsUri = "http://localhost:5005/api/userGroups/";
-        public UserGroupsController(IHttpClientFactory clientFactory)
+        private static string _userGroupsUri;
+        public UserGroupsController(IHttpClientFactory clientFactory, IOptions<Config> config)
         {
             _clientFactory = clientFactory;
+            _userGroupsUri = config.Value.UserGroupsUri;
         }
 
         public async Task<IActionResult> UserGroups()

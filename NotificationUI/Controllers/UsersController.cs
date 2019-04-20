@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using NotificationUI.Models;
 using NotificationUI.Utilities;
@@ -14,11 +15,12 @@ namespace NotificationUI.Controllers
     public class UsersController : Controller
     {
         private IHttpClientFactory _clientFactory;
-        private string _usersUri = "http://localhost:5005/api/users/";
+        private string _usersUri;
 
-        public UsersController(IHttpClientFactory clientFactory)
+        public UsersController(IHttpClientFactory clientFactory, IOptions<Config> config)
         {
             _clientFactory = clientFactory;
+            _usersUri = config.Value.UsersUri;
         }
 
         public async Task<IActionResult> Users()

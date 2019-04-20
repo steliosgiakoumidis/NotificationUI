@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using NotificationUI.Models;
 using NotificationUI.Utilities;
 using Serilog;
@@ -12,11 +13,12 @@ namespace NotificationUI.Controllers
     public class TemplatesController : Controller
     {
         public IHttpClientFactory _clientFactory;
-        private static string _templatesUri = "http://localhost:5005/api/template/";
+        private static string _templatesUri;
 
-        public TemplatesController(IHttpClientFactory clientFactory)
+        public TemplatesController(IHttpClientFactory clientFactory, IOptions<Config> config)
         {
             _clientFactory = clientFactory;
+            _templatesUri = config.Value.TemplatesUri;
         }
 
         public async Task<IActionResult> Templates()
