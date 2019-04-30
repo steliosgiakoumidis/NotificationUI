@@ -54,7 +54,7 @@ namespace NotificationUI.Controllers
         [HttpPost]
         [ValidateAntiForgeryTokenAttribute]
         public async Task<IActionResult> Edit(int? id, 
-            [Bind("Id, Username, Email, Facebook")] User user)
+            [Bind("Id, Username, Email, SMS")] User user)
         {
             if(!id.HasValue || id != user.Id) return NotFound();
             if (ModelState.IsValid)
