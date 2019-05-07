@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationUI", "NotificationUI\NotificationUI.csproj", "{C6D9EA82-4E65-41D4-AC5E-A064C1AC0BED}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "src\NotificationUI", "src\NotificationUI\NotificationUI.csproj", "{C6D9EA82-4E65-41D4-AC5E-A064C1AC0BED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
