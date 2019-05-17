@@ -55,7 +55,7 @@ namespace NotificationUI.Controllers
         [HttpPost]
         [ValidateAntiForgeryTokenAttribute]
         public async Task<IActionResult> Edit(
-            [Bind("Id, ReminderName, StartDate, RepetitionFrequency, ExecutionTime, DayOfTheWeek, LastRunAt, Parameters, Username, UserGroup, Priority")]
+            [Bind("Id, ReminderName, StartDate, RepetitionFrequency, ExecutionTime, DayOfTheWeek, LastRunAt, Parameters, Username, UserGroup, Priority, TemplateName")]
             Sendout sendout)
         {
             if (ModelState.IsValid)
@@ -86,9 +86,9 @@ namespace NotificationUI.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryTokenAttribute]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(
-            [Bind("ReminderName, StartDate, RepetitionFrequency, ExecutionTime, DayOfTheWeek, LastRunAt, Parameters, Username, UserGroup, Priority")]
+            [Bind("ReminderName, StartDate, RepetitionFrequency, ExecutionTime, DayOfTheWeek, LastRunAt, Parameters, Username, UserGroup, Priority, TemplateName")]
             Sendout sendout)
         {
             if(!ModelState.IsValid) return StatusCode(500, sendout);

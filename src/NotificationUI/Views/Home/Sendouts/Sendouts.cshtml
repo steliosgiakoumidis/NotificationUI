@@ -5,36 +5,39 @@
 <table class="table">
     <thead>
         <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Id)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ReminderName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.StartDate)
-                </th>
-                <th>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReminderName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TemplateName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RepetitionFrequency)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.ExecutionTime)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ExecutionTime)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DayOfTheWeek)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.LastRunAt)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Parameters)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Username)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.UserGroup)
-                </th>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DayOfTheWeek)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastRunAt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Parameters)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Username)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserGroup)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -48,6 +51,9 @@
                 @Html.DisplayFor(modelItem => item.ReminderName)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.TemplateName)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.StartDate)
             </td>
             <td>
@@ -56,23 +62,23 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ExecutionTime)
             </td>
-                        <td>
+            <td>
                 @Html.DisplayFor(modelItem => item.DayOfTheWeek)
             </td>
-                        <td>
+            <td>
                 @Html.DisplayFor(modelItem => item.LastRunAt)
             </td>
-                        <td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Parameters)
             </td>
-                        <td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Username)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.UserGroup)
             </td>
             <td>
-                <a style="margin-right: 10px" asp-controller="Sendouts" asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
+                <a style="margin-right: 10px" asp-controller="Sendouts" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
                 <a asp-controller="Sendouts" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
