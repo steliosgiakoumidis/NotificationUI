@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Runtime.InteropServices;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -13,9 +14,12 @@ namespace NotificationUI
     {
         public Startup(IConfiguration configuration)
         {
+            var env = RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ?
+                        "Linux" : "Windows";
             var builder = new ConfigurationBuilder()
                                 .SetBasePath(Directory.GetCurrentDirectory())
                                 .AddJsonFile("appsettings.json")
+                                .AddJsonFile($"appsettings.{env}.json", true)
                                 .AddEnvironmentVariables();
             
             Configuration = builder.Build();
@@ -53,9 +57,9 @@ namespace NotificationUI
             {
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
+                //app.UseHsts();
             }
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
 

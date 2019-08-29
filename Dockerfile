@@ -1,7 +1,16 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:2.2 as builder
+FROM mcr.microsoft.com/dotnet/core/sdk:2.2 AS build
 
-COPY ./src/NotificationUI ./app/
+
+# copy csproj and restore as distinct layers
+
+COPY ./src/NotificationUI/ ./app/
+RUN dotnet restore ./app/NotificationUI.csproj
 
 WORKDIR /app
+RUN dotnet publish -c Release -o out
+RUN ls ./out/
 
-RUN dotnet build NotificationUI.csproj
+FROM mcr.microsoft.com/dotnet/core/aspnet:2.2 AS runtime
+WORKDIR /app
+COPY --from=build /app/out/ ./
+ENTRYPOINT ["dotnet", "NotificationUI.dll"]
